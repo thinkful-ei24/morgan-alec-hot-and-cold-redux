@@ -9,9 +9,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch(action.type) {
-    // case RESTART_GAME:
-    //   return {
-    //   };
+    case RESTART_GAME:
+      return {
+        ...initialState,
+        correctAnswer: Math.floor(Math.random() * 100) + 1
+      };
     // case SHOW_TOOLTIP:
     //   return {}
     case MAKE_GUESS:
