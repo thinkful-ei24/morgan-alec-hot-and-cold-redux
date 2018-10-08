@@ -2,46 +2,28 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './feedback.css';
 
-export class Feedback extends React.Component {
-  /** 
-   * Below, we'll use the guessCount to generate a key so that React treats the feedback message 
+class Feedback extends React.Component {
+  /**
+   * Below, we'll use the guessCount to generate a key so that React treats the feedback message
    * as a DOM change, even when a guess does not change the feedback text.
    * This is necessary for consistent aural feedback via aria-live.
   */
- 
- get feedback() {
-   if (this.props.guesses.length) {
-     const difference = Math.abs(this.props.guesses[this.props.guesses.length - 1] - this.props.correctAnswer);
-     if (difference >= 50) {
-       return 'You\'re Ice Cold...';
-      } else if (difference >= 30) {
-        return 'You\'re Cold...';
-      } else if (difference >= 10) {
-        return 'You\'re Warm.';
-      } else if (difference >= 1) {
-        return 'You\'re Hot!';
-      } else {
-        return 'You got it!';
-      }
-    }
-    else return 'Make your guess!';
-  }
-  
+
   render() {
-    const key = this.props.guessCount;
+    const key = this.props.guesses.length;
     let guessAgain;
     if (key !== 0) {
       guessAgain = <span className="visuallyhidden">Guess again!</span>;
     }
     return (
-      <h2 
+      <h2
         key={key}
         id="feedback"
         role="status"
         aria-live="assertive"
         aria-atomic="true"
       >
-        {this.feedback} {guessAgain}
+        {this.props.feedback} {guessAgain}
       </h2>
     );
   }
@@ -49,7 +31,8 @@ export class Feedback extends React.Component {
 
 const mapStateToProps = state => ({
   guesses: state.guesses,
-  correctAnswer: state.correctAnswer
+  correctAnswer: state.correctAnswer,
+  feedback: state.feedback
 });
 
-export default connect(mapStateToProps)(Feedback); 
+export default connect(mapStateToProps)(Feedback);
