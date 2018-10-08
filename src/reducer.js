@@ -10,7 +10,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch(action.type) {
     // case RESTART_GAME:
-    //   return {   
+    //   return {
     //   };
     // case SHOW_TOOLTIP:
     //   return {}
